@@ -1,0 +1,114 @@
+.kpi-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.kpi-card:hover {
+  background: var(--bg-card-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Color variants */
+.kpi-card--cyan { --card-accent: var(--accent-cyan); --card-glow: var(--accent-cyan-glow); }
+.kpi-card--purple { --card-accent: var(--accent-purple); --card-glow: var(--accent-purple-glow); }
+.kpi-card--emerald { --card-accent: var(--accent-emerald); --card-glow: var(--accent-emerald-glow); }
+.kpi-card--amber { --card-accent: var(--accent-amber); --card-glow: var(--accent-amber-glow); }
+.kpi-card--rose { --card-accent: var(--accent-rose); --card-glow: var(--accent-rose-glow); }
+
+.kpi-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.kpi-card__icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.kpi-card__trend {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.trend-up {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-emerald);
+}
+
+.trend-down {
+  background: rgba(244, 63, 94, 0.1);
+  color: var(--accent-rose);
+}
+
+.trend-arrow {
+  font-weight: 600;
+}
+
+.kpi-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.kpi-card__value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--card-accent);
+  text-shadow: 0 0 20px var(--card-glow);
+}
+
+.kpi-card__title {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.kpi-card__skeleton {
+  height: 2rem;
+  width: 60%;
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--bg-secondary) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.kpi-card__glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--card-accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.kpi-card:hover .kpi-card__glow {
+  opacity: 1;
+}
+
+
+

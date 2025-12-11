@@ -1,0 +1,102 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* KPI Section */
+.kpi-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Charts Section - Primary */
+.charts-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1.25rem;
+}
+
+/* Charts Section - Secondary */
+.charts-section-secondary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+/* Table Section */
+.table-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+/* Responsive - Desktop Large */
+@media (max-width: 1400px) {
+  .charts-section {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+}
+
+/* Responsive - Desktop */
+@media (max-width: 1200px) {
+  .charts-section {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .charts-section > *:first-child {
+    grid-column: span 2;
+  }
+
+  .charts-section-secondary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .charts-section-secondary > *:last-child {
+    grid-column: span 2;
+  }
+}
+
+/* Responsive - Tablet */
+@media (max-width: 992px) {
+  .kpi-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .charts-section-secondary {
+    grid-template-columns: 1fr;
+  }
+
+  .charts-section-secondary > *:last-child {
+    grid-column: span 1;
+  }
+}
+
+/* Responsive - Mobile Large */
+@media (max-width: 768px) {
+  .dashboard {
+    gap: 1.25rem;
+  }
+
+  .kpi-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .charts-section {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .charts-section > *:first-child {
+    grid-column: span 1;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+  .kpi-section {
+    grid-template-columns: 1fr;
+  }
+}

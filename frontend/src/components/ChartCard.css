@@ -1,0 +1,98 @@
+.chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-card--large {
+  min-height: 400px;
+}
+
+.chart-card--full {
+  min-height: 300px;
+}
+
+.chart-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.chart-card__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.chart-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.chart-card__subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.chart-card__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chart-card__btn {
+  width: 32px;
+  height: 32px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.chart-card__btn:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.chart-card__btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.chart-card__body {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loading state */
+.chart-card--loading .chart-card__body {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--bg-secondary) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+
+
