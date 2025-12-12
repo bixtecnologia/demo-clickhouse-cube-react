@@ -16,6 +16,10 @@ const COLORS = ['#00d4ff', '#a855f7', '#10b981', '#f59e0b', '#f43f5e'];
 
 const CategorySalesChart = ({ filters }) => {
   const buildQuery = () => {
+    const dateFilter = getDateFilter(filters?.dateRange || 'all');
+    
+    // Using OrderItems.totalSales because OrderItems has direct join with Products
+    // The timeDimension uses Orders.orderDate via OrderItems -> Orders join
     const query = {
       measures: ['OrderItems.totalSales'],
       dimensions: ['Products.category'],
@@ -23,17 +27,11 @@ const CategorySalesChart = ({ filters }) => {
         'OrderItems.totalSales': 'desc',
       },
       limit: 5,
+      timeDimensions: [{
+        dimension: 'Orders.orderDate',
+        dateRange: dateFilter,
+      }],
     };
-
-    if (filters?.dateRange && filters.dateRange !== 'all') {
-      const dateFilter = getDateFilter(filters.dateRange);
-      if (dateFilter) {
-        query.timeDimensions = [{
-          dimension: 'Orders.orderDate',
-          dateRange: dateFilter,
-        }];
-      }
-    }
 
     return query;
   };
@@ -55,7 +53,7 @@ const CategorySalesChart = ({ filters }) => {
       case '2025-Q4':
         return ['2025-10-01', '2025-12-31'];
       default:
-        return null;
+        return ['2025-01-01', '2025-12-31']; // Full year for 'all'
     }
   };
 

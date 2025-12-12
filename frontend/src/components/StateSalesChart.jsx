@@ -16,6 +16,10 @@ const COLORS = ['#00d4ff', '#a855f7', '#10b981', '#f59e0b', '#f43f5e', '#ec4899'
 
 const StateSalesChart = ({ filters }) => {
   const buildQuery = () => {
+    const dateFilter = getDateFilter(filters?.dateRange || 'all');
+    
+    // Using Orders.totalRevenue because Orders has direct join with Customers
+    // This ensures the date filter works correctly through Orders.orderDate
     const query = {
       measures: ['Orders.totalRevenue'],
       dimensions: ['Customers.state'],
@@ -23,6 +27,10 @@ const StateSalesChart = ({ filters }) => {
         'Orders.totalRevenue': 'desc',
       },
       limit: 7,
+      timeDimensions: [{
+        dimension: 'Orders.orderDate',
+        dateRange: dateFilter,
+      }],
     };
 
     const queryFilters = [];
@@ -33,16 +41,6 @@ const StateSalesChart = ({ filters }) => {
         operator: 'equals',
         values: [filters.segment],
       });
-    }
-
-    if (filters?.dateRange && filters.dateRange !== 'all') {
-      const dateFilter = getDateFilter(filters.dateRange);
-      if (dateFilter) {
-        query.timeDimensions = [{
-          dimension: 'Orders.orderDate',
-          dateRange: dateFilter,
-        }];
-      }
     }
 
     if (queryFilters.length > 0) {
@@ -69,7 +67,7 @@ const StateSalesChart = ({ filters }) => {
       case '2025-Q4':
         return ['2025-10-01', '2025-12-31'];
       default:
-        return null;
+        return ['2025-01-01', '2025-12-31']; // Full year for 'all'
     }
   };
 

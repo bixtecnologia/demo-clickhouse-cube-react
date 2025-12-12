@@ -6,6 +6,8 @@ import './OrdersTable.css';
 const OrdersTable = ({ filters }) => {
   // Build the query based on filters
   const buildQuery = () => {
+    const dateFilter = getDateFilter(filters?.dateRange || 'all');
+    
     const query = {
       measures: ['Orders.totalRevenue', 'Orders.totalProfit'],
       dimensions: [
@@ -20,6 +22,10 @@ const OrdersTable = ({ filters }) => {
         'Orders.orderDate': 'desc',
       },
       limit: 15,
+      timeDimensions: [{
+        dimension: 'Orders.orderDate',
+        dateRange: dateFilter,
+      }],
     };
 
     const queryFilters = [];
@@ -38,16 +44,6 @@ const OrdersTable = ({ filters }) => {
         operator: 'equals',
         values: [filters.segment],
       });
-    }
-
-    if (filters?.dateRange && filters.dateRange !== 'all') {
-      const dateFilter = getDateFilter(filters.dateRange);
-      if (dateFilter) {
-        query.timeDimensions = [{
-          dimension: 'Orders.orderDate',
-          dateRange: dateFilter,
-        }];
-      }
     }
 
     if (queryFilters.length > 0) {
@@ -74,7 +70,7 @@ const OrdersTable = ({ filters }) => {
       case '2025-Q4':
         return ['2025-10-01', '2025-12-31'];
       default:
-        return null;
+        return ['2025-01-01', '2025-12-31']; // Full year for 'all'
     }
   };
 

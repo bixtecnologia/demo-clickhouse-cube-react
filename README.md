@@ -9,6 +9,9 @@ Um ambiente completo de analytics com **ClickHouse**, **Cube.js** e **React**, i
 
 ## 🚀 Início Rápido
 
+Esse é um projeto com código e dados demo feito pela Bix Tecnologia. https://bixtecnologia.com.br
+image.png
+
 ### Pré-requisitos
 
 - Docker Desktop instalado e rodando

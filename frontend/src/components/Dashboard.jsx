@@ -37,12 +37,14 @@ const Dashboard = () => {
       case '2025-Q4':
         return ['2025-10-01', '2025-12-31'];
       default:
-        return null;
+        return ['2025-01-01', '2025-12-31']; // Full year for 'all'
     }
   };
 
   // Build KPI query with filters
   const kpiQuery = useMemo(() => {
+    const dateFilter = getDateFilter(filters.dateRange);
+    
     const query = {
       measures: [
         'Orders.count',
@@ -50,6 +52,10 @@ const Dashboard = () => {
         'Orders.totalProfit',
         'Orders.averageOrderValue'
       ],
+      timeDimensions: [{
+        dimension: 'Orders.orderDate',
+        dateRange: dateFilter,
+      }],
     };
 
     const queryFilters = [];
@@ -68,16 +74,6 @@ const Dashboard = () => {
         operator: 'equals',
         values: [filters.segment],
       });
-    }
-
-    if (filters.dateRange !== 'all') {
-      const dateFilter = getDateFilter(filters.dateRange);
-      if (dateFilter) {
-        query.timeDimensions = [{
-          dimension: 'Orders.orderDate',
-          dateRange: dateFilter,
-        }];
-      }
     }
 
     if (queryFilters.length > 0) {

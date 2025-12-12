@@ -16,23 +16,19 @@ const COLORS = ['#00d4ff', '#a855f7', '#f59e0b'];
 
 const SegmentChart = ({ filters }) => {
   const buildQuery = () => {
+    const dateFilter = getDateFilter(filters?.dateRange || 'all');
+    
     const query = {
       measures: ['Orders.totalRevenue'],
       dimensions: ['Customers.segment'],
       order: {
         'Orders.totalRevenue': 'desc',
       },
+      timeDimensions: [{
+        dimension: 'Orders.orderDate',
+        dateRange: dateFilter,
+      }],
     };
-
-    if (filters?.dateRange && filters.dateRange !== 'all') {
-      const dateFilter = getDateFilter(filters.dateRange);
-      if (dateFilter) {
-        query.timeDimensions = [{
-          dimension: 'Orders.orderDate',
-          dateRange: dateFilter,
-        }];
-      }
-    }
 
     return query;
   };
@@ -54,7 +50,7 @@ const SegmentChart = ({ filters }) => {
       case '2025-Q4':
         return ['2025-10-01', '2025-12-31'];
       default:
-        return null;
+        return ['2025-01-01', '2025-12-31']; // Full year for 'all'
     }
   };
 
