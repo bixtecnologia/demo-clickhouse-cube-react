@@ -19,15 +19,12 @@ const ShipModeChart = ({ filters }) => {
       dimensions: ['Orders.shipMode'],
     };
 
-    if (filters?.dateRange && filters.dateRange !== 'all') {
-      const dateFilter = getDateFilter(filters.dateRange);
-      if (dateFilter) {
-        query.timeDimensions = [{
-          dimension: 'Orders.orderDate',
-          dateRange: dateFilter,
-        }];
-      }
-    }
+    // Always include timeDimensions for consistent behavior with pre-aggregations
+    const dateFilter = getDateFilter(filters?.dateRange || 'all');
+    query.timeDimensions = [{
+      dimension: 'Orders.orderDate',
+      dateRange: dateFilter,
+    }];
 
     return query;
   };
@@ -49,7 +46,7 @@ const ShipModeChart = ({ filters }) => {
       case '2025-Q4':
         return ['2025-10-01', '2025-12-31'];
       default:
-        return null;
+        return ['2025-01-01', '2025-12-31']; // Full year for 'all'
     }
   };
 

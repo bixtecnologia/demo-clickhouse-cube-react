@@ -14,31 +14,22 @@ import './Charts.css';
 
 const RevenueChart = ({ filters }) => {
   const buildQuery = () => {
+    const dateFilter = getDateFilter(filters?.dateRange || 'all');
+    const granularity = ['last30', 'last90'].includes(filters?.dateRange) ? 'week' : 'month';
+    
     const query = {
       measures: ['Orders.totalRevenue', 'Orders.totalProfit'],
       timeDimensions: [
         {
           dimension: 'Orders.orderDate',
-          granularity: 'month',
-          dateRange: ['2025-01-01', '2025-12-31'],
+          granularity: granularity,
+          dateRange: dateFilter,
         },
       ],
       order: {
         'Orders.orderDate': 'asc',
       },
     };
-
-    // Apply date filter if specified
-    if (filters?.dateRange && filters.dateRange !== 'all') {
-      const dateFilter = getDateFilter(filters.dateRange);
-      if (dateFilter) {
-        query.timeDimensions[0].dateRange = dateFilter;
-        // Use day granularity for shorter periods
-        if (['last30', 'last90'].includes(filters.dateRange)) {
-          query.timeDimensions[0].granularity = 'week';
-        }
-      }
-    }
 
     return query;
   };
@@ -60,7 +51,7 @@ const RevenueChart = ({ filters }) => {
       case '2025-Q4':
         return ['2025-10-01', '2025-12-31'];
       default:
-        return null;
+        return ['2025-01-01', '2025-12-31']; // Full year for 'all'
     }
   };
 
