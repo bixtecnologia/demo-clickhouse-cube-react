@@ -10,7 +10,7 @@ Um ambiente completo de analytics com **ClickHouse**, **Cube.js** e **React**, i
 ## 🚀 Início Rápido
 
 Esse é um projeto com código e dados demo feito pela Bix Tecnologia. https://bixtecnologia.com.br
-image.png
+![demo](https://github.com/bixtecnologia/demo-clickhouse-cube-react/blob/main/image.png)
 
 ### Pré-requisitos
 
