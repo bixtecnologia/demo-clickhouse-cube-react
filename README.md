@@ -19,9 +19,7 @@ image.png
 
 ### Executando o projeto
 
-```powershell
-# Clone ou navegue até o diretório do projeto
-cd "D:\Dev Center\clinica leite"
+
 
 # Inicie todos os serviços
 docker-compose up -d
@@ -53,7 +51,7 @@ docker-compose logs -f
 ## 📁 Estrutura do Projeto
 
 ```
-clinica leite/
+/
 ├── docker-compose.yml       # Orquestração dos containers
 ├── README.md
 │
